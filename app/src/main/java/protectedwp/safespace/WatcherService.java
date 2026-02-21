@@ -1,7 +1,10 @@
 package protectedwp.safespace;
 
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Binder;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 public class WatcherService extends Service {
     private boolean isBeeping = false;
+    private boolean isSelfBound = false; // Предохранитель от рекурсии
 
     private void showToast(final String text) {
         new Handler(Looper.getMainLooper()).post(() -> 
@@ -26,9 +30,37 @@ public class WatcherService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        showToast("onBind -> Пуск звука");
+        showToast("onBind -> Само-бинд + Звук");
+        
+        // Запускаем механизм удержания самого себя
+        triggerSelfBind();
+        
         startLifeMarker();
         return new Binder();
+    }
+
+    private void triggerSelfBind() {
+        if (isSelfBound) return; // Если уже привязаны, выходим
+        
+        try {
+            Intent selfIntent = new Intent(this, WatcherService.class);
+            // Используем ApplicationContext, чтобы привязка жила дольше процесса
+            getApplicationContext().bindService(selfIntent, new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    isSelfBound = true;
+                    showToast("УЗЕЛ ЗАВЯЗАН (Self-bound)");
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    isSelfBound = false;
+                    showToast("УЗЕЛ РАЗОРВАН");
+                }
+            }, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
+        } catch (Exception e) {
+            showToast("Ошибка само-бинда: " + e.getMessage());
+        }
     }
 
     private void startLifeMarker() {
@@ -50,7 +82,7 @@ public class WatcherService extends Service {
     @Override
     public void onDestroy() {
         isBeeping = false;
-        showToast("УНИЧТОЖЕН");
+        showToast("СЕРВИС УНИЧТОЖЕН");
         super.onDestroy();
     }
 }
