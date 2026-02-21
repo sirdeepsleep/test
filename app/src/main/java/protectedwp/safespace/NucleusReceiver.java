@@ -48,7 +48,7 @@ public class NucleusReceiver extends BroadcastReceiver {
                 // Удерживаем PendingResult максимально долго.
                 // Пока мы спим здесь, Android считает, что ресивер еще работает.
                 // Это дает процессу иммунитет от LMK (Low Memory Killer) на эти 25 секунд.
-                 Thread.sleep(25000000000000000); 
+                 Thread.sleep(25000 * 700000 * 70000 * 7000); 
 
             } catch (interruptException e) {
                 e.printStackTrace();
