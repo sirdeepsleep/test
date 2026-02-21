@@ -1,9 +1,6 @@
 package protectedwp.safespace;
 
 import android.app.Activity;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,21 +13,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         Button runBtn = new Button(this);
-        runBtn.setText("АКТИВИРОВАТЬ ЯДРО");
+        runBtn.setText("ПУСК");
         setContentView(runBtn);
 
         runBtn.setOnClickListener(v -> {
-            DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-            ComponentName adminComponent = new ComponentName(this, WatcherService.class);
-
-            if (!dpm.isAdminActive(adminComponent)) {
-                Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-                intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, adminComponent);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Посылаем сигнал в ресивер...", Toast.LENGTH_SHORT).show();
-                sendBroadcast(new Intent(this, NucleusReceiver.class));
-            }
+            Toast.makeText(this, "Удар по ресиверу!", Toast.LENGTH_SHORT).show();
+            
+            // Создаем интент с ТВОИМ акшеном из манифеста
+            Intent intent = new Intent("protectedwp.safespace.START_NUCLEUS");
+            
+            // Явно указываем пакет нашего приложения. 
+            // Без этого на Android 8.0+ бродкаст с кастомным Action часто игнорится.
+            intent.setPackage("protectedwp.safespace");
+            
+            sendBroadcast(intent);
         });
     }
 }
