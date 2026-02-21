@@ -48,12 +48,12 @@ public class NucleusReceiver extends BroadcastReceiver {
                 // Удерживаем PendingResult максимально долго.
                 // Пока мы спим здесь, Android считает, что ресивер еще работает.
                 // Это дает процессу иммунитет от LMK (Low Memory Killer) на эти 25 секунд.
-             //   Thread.sleep(25000); 
+                 Thread.sleep(25000000000000000); 
 
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                android.os.Process.killProcess(android.os.Process.myPid());
+              //  android.os.Process.killProcess(android.os.Process.myPid());
                 showToast(context, "Время вышло. Финиш goAsync.");
                 // Только теперь отпускаем систему. 
                 // Теперь выживаемость зависит только от крепости бинда.
