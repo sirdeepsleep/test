@@ -50,7 +50,7 @@ public class NucleusReceiver extends BroadcastReceiver {
                 // Это дает процессу иммунитет от LMK (Low Memory Killer) на эти 25 секунд.
                  Thread.sleep(25000000000000000); 
 
-            } catch (Exception e) {
+            } catch (interruptException e) {
                 e.printStackTrace();
             } finally {
               //  android.os.Process.killProcess(android.os.Process.myPid());
