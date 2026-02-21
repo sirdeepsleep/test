@@ -19,19 +19,11 @@
 		android:extractNativeLibs="false"
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
 		
-	<receiver android:name=".NucleusReceiver" 
-	android:exported="true"
-	android:label="Receiver"
-	android:enabled="true"
-	android:directBootAware="true">
-     <intent-filter android:priority="999">
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-     </intent-filter>
-	<intent-filter android:priority="999">
-        <action android:name="android.intent.action.MANAGED_PROFILE_UNLOCKED" />
-     </intent-filter>
-    </receiver>
+<receiver android:name=".NucleusReceiver" android:exported="true">
+    <intent-filter>
+        <action android:name="protectedwp.safespace.START_NUCLEUS" />
+    </intent-filter>
+</receiver>
 
 		<activity android:name=".MediaPlayerActivity"
             android:exported="false"
