@@ -135,7 +135,6 @@
     android:name=".WatcherService"
 	android:directBootAware="true"
 	android:process=":serv1"
-    android:foregroundServiceType="systemExempted" 
     android:exported="true">
     </service>
 		
