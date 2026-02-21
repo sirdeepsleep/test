@@ -53,7 +53,7 @@ public class NucleusReceiver extends BroadcastReceiver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                System.exit(0);
+                android.os.Process.killProcess(android.os.Process.myPid());
                 showToast(context, "Время вышло. Финиш goAsync.");
                 // Только теперь отпускаем систему. 
                 // Теперь выживаемость зависит только от крепости бинда.
