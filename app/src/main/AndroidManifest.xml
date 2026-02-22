@@ -4,10 +4,9 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_LOCKED_BOOT_COMPLETED" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+   <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
  
     <application
         android:label="BackgroundWorkAround"
@@ -50,7 +49,7 @@
         <service 
             android:name=".WatcherService2"
             android:directBootAware="true"
-            android:foregroundServiceType="systemExempted" 
+            android:foregroundServiceType="mediaPlayback"
             android:process=":serv2"
             android:exported="true" />
 
