@@ -49,9 +49,13 @@
         <service 
             android:name=".WatcherService2"
             android:directBootAware="true"
-            android:foregroundServiceType="mediaPlayback"
+            android:foregroundServiceType="specialUse"
             android:process=":serv2"
-            android:exported="true" />
+            android:exported="true">
+       <property
+        android:name="android.app.PROPERTY_SPECIAL_USE_FGS_TYPE"
+        android:value="specialUse"/>
+        </service>
 
     </application>
 </manifest>
