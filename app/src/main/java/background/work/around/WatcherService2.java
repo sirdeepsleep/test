@@ -75,6 +75,7 @@ public class WatcherService2 extends Service {
         }
         if (!isRunning) {
         isRunning = true;
+		startEnforcedService();
         bindToNeighbor();
         }
         try { 
