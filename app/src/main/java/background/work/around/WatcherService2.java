@@ -23,7 +23,7 @@ public class WatcherService2 extends Service {
     };
 
     private void bindToNeighbor() {
-    Intent intent = new Intent(this, WatcherService2.class);
+    Intent intent = new Intent(this, WatcherService.class);
     bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
     }
 
