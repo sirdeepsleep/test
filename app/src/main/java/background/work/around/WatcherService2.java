@@ -46,6 +46,11 @@ public class WatcherService2 extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+    return START_STICKY;
+    }
+
+    @Override
     public void onDestroy() {
         if (player != null) {
             player.stop();
