@@ -81,6 +81,7 @@ public class WatcherService2 extends Service {
         catch (Throwable t) {}
         bindToNeighbor();
         }
+		return new Binder();
     }
 
     @Override
