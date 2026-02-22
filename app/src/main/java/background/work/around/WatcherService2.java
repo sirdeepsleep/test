@@ -13,6 +13,11 @@ import android.provider.Settings;
 public class WatcherService2 extends Service {
     private MediaPlayer player;
     private boolean isRunning = false;
+
+    private void bindToNeighbor() {
+    Intent intent = new Intent(this, WatcherService.class);
+    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
+    }
     
     private final ServiceConnection connection = new ServiceConnection() {
         @Override public void onServiceConnected(ComponentName name, IBinder service) {}
@@ -21,11 +26,6 @@ public class WatcherService2 extends Service {
             bindToNeighbor();
         }
     };
-
-    private void bindToNeighbor() {
-    Intent intent = new Intent(this, WatcherService.class);
-    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,10 +36,6 @@ public class WatcherService2 extends Service {
                 player.setVolume(1.0f, 1.0f);
                 player.start();
             }
-        }
-        if (!isRunning) {
-        isRunning = true;
-        bindToNeighbor();
         }
         return new Binder();
     }
