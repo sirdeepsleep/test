@@ -80,10 +80,6 @@ public class WatcherService2 extends Service {
 		startEnforcedService();
         bindToNeighbor();
         }
-        try { 
-        startService(new Intent(this, this.getClass()));
-        } catch (Throwable t) {}
-        return new Binder();
     }
 
     @Override
