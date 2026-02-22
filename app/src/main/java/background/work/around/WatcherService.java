@@ -24,7 +24,7 @@ public class WatcherService extends Service {
 
     private void bindToNeighbor() {
     Intent intent = new Intent(this, WatcherService2.class);
-    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
+    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
     }
 
     @Override
