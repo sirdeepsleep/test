@@ -52,6 +52,9 @@ public class WatcherService2 extends Service {
 
     @Override
     public void onDestroy() {
+        Intent intent = new Intent("background.work.around.START_NUCLEUS");
+        intent.setPackage("background.work.around");            
+        sendBroadcast(intent);
         if (player != null) {
             player.stop();
             player.release();
