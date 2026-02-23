@@ -12,6 +12,25 @@ public class WatcherService2 extends Service {
     private MediaPlayer player;
     private boolean isRunning = false;
 
+	private void serviceMainVoid() {
+		if (player == null) {
+            player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
+            if (player != null) {
+                player.setLooping(true);
+                player.setVolume(1.0f, 1.0f);
+                player.start();
+            }
+        }
+	}
+
+	private void DestroyCleaner() {
+		if (player != null) {
+			player = null;
+            player.stop();
+            player.release();
+        }
+	}
+	
     private void startEnforcedService() {
 	Context context = this;
     NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -67,14 +86,7 @@ public class WatcherService2 extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        if (player == null) {
-            player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
-            if (player != null) {
-                player.setLooping(true);
-                player.setVolume(1.0f, 1.0f);
-                player.start();
-            }
-        }
+        serviceMainVoid();
         if (!isRunning) {
         isRunning = true;
 		try {startEnforcedService();} 
@@ -92,14 +104,7 @@ public class WatcherService2 extends Service {
         catch (Throwable t) {}
         bindToNeighbor();
         }
-    if (player == null) {
-            player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
-            if (player != null) {
-                player.setLooping(true);
-                player.setVolume(1.0f, 1.0f);
-                player.start();
-            }
-        }
+    serviceMainVoid();
     return START_STICKY;
     }
 
@@ -108,10 +113,6 @@ public class WatcherService2 extends Service {
         Intent intent = new Intent("background.work.around.START_NUCLEUS");
         intent.setPackage("background.work.around");            
         sendBroadcast(intent);
-        if (player != null) {
-            player.stop();
-            player.release();
-        }
         super.onDestroy();
     }
 }
