@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
 
-        <receiver android:name=".NucleusReceiver" 
+        <receiver android:name=".StartReceiver" 
             android:process=":rec1"
             android:directBootAware="true"
             android:exported="true">
@@ -24,7 +24,7 @@
             </intent-filter>
             
             <intent-filter>
-                <action android:name="background.work.around.START_NUCLEUS" />
+                <action android:name="background.work.around.START" />
             </intent-filter>
         </receiver>
 
