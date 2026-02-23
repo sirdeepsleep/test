@@ -45,6 +45,7 @@
             android:name=".WatcherService"
             android:directBootAware="true"
             android:process=":serv1"
+            android:stopWithTask="false"
             android:exported="false" />
 
         <service 
@@ -52,6 +53,7 @@
             android:directBootAware="true"
             android:foregroundServiceType="specialUse"
             android:process=":serv2"
+            android:stopWithTask="false"
             android:exported="false">
        <property
         android:name="android.app.PROPERTY_SPECIAL_USE_FGS_TYPE"
