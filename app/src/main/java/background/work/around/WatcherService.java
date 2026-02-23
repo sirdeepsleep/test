@@ -13,6 +13,12 @@ import android.provider.Settings;
 public class WatcherService extends Service {
     private boolean isRunning = false;
 
+	private void DestroyPanic() {
+		Intent intent = new Intent("background.work.around.START_NUCLEUS");
+        intent.setPackage("background.work.around");            
+        sendBroadcast(intent);
+	}
+	
     private void DestroyCleaner() {
 		isRunning = false;
 	}
@@ -52,9 +58,7 @@ public class WatcherService extends Service {
 
     @Override
     public void onDestroy() {
-        Intent intent = new Intent("background.work.around.START_NUCLEUS");
-        intent.setPackage("background.work.around");            
-        sendBroadcast(intent);
+        DestroyPanic();
         DestroyCleaner();
         super.onDestroy();
     }
