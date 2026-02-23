@@ -75,11 +75,26 @@ public class RiderService extends Service {
         startForeground(1, notif);
     }
 	}
-    
-    private void bindToNeighbor() {
-    Intent intent = new Intent(this, HelperService.class);
+
+	private void TryStartEnforcedService() {
+		try {startEnforcedService();} 
+        catch (Throwable t) {}
+	}
+
+	
+    private void initBindAndStart() {
+	   if (!isRunning) {
+        isRunning = true;
+		forceBindAndStart();
+		TryStartEnforcedService();
+		serviceMainVoid();
+        }
+	}
+
+	private void forceBindAndStart() {
+    Intent intent = new Intent(this, RiderService.class);
     bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
-	try {startService(intent);} 
+    try {startService(intent);} 
     catch (Throwable t) {}
     }
     
@@ -93,25 +108,14 @@ public class RiderService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        serviceMainVoid();
-        if (!isRunning) {
-        isRunning = true;
-		try {startEnforcedService();} 
-        catch (Throwable t) {}
-        bindToNeighbor();
+        initBindAndStart();
         }
 		return new Binder();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-    if (!isRunning) {
-        isRunning = true;
-        try {startEnforcedService();} 
-        catch (Throwable t) {}
-        bindToNeighbor();
-        }
-    serviceMainVoid();
+    initBindAndStart();
     return START_STICKY;
     }
 
