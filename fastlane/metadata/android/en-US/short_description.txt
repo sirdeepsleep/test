@@ -1,1 +1,1 @@
-Background Survival Test App.
+Example of the most survival foreground service.
