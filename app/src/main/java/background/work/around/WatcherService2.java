@@ -23,6 +23,12 @@ public class WatcherService2 extends Service {
         }
 	}
 
+	private void DestroyPanic() {
+		Intent intent = new Intent("background.work.around.START_NUCLEUS");
+        intent.setPackage("background.work.around");            
+        sendBroadcast(intent);
+	}
+	
 	private void DestroyCleaner() {
 		isRunning = false;
 		if (player != null) {
@@ -111,9 +117,7 @@ public class WatcherService2 extends Service {
 
     @Override
     public void onDestroy() {
-        Intent intent = new Intent("background.work.around.START_NUCLEUS");
-        intent.setPackage("background.work.around");            
-        sendBroadcast(intent);
+        DestroyPanic();
 		DestroyCleaner();
         super.onDestroy();
     }
