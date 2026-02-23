@@ -102,7 +102,7 @@ public class RiderService extends Service {
         @Override public void onServiceConnected(ComponentName name, IBinder service) {}
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            bindToNeighbor();
+            forceBindAndStart();
         }
     };
 
