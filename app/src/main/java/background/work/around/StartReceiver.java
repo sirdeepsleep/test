@@ -32,7 +32,7 @@ public class StartReceiver extends BroadcastReceiver {
         new Thread(() -> {
             try {
                 Context appContext = context.getApplicationContext();
-                Intent serviceIntent = new Intent(appContext, WatcherService.class);
+                Intent serviceIntent = new Intent(appContext, HelperService.class);
 
                // showToast(context, "Starting bind...");
                 
