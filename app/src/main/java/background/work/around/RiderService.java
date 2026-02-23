@@ -109,7 +109,6 @@ public class RiderService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         initBindAndStart();
-        }
 		return new Binder();
     }
 
