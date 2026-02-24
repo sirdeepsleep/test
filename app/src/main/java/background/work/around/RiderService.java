@@ -15,9 +15,8 @@ public class RiderService extends Service {
 	private void startWatchdogThread() {
     new Thread(() -> {
         Context ctx = getApplicationContext();
-        isRunning = true;
 
-        while (isRunning) {
+        while (true) {
             try {
                 AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
                 
