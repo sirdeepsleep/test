@@ -116,9 +116,9 @@ public class RiderService extends Service {
 	   if (!isRunning) {
         isRunning = true;
 		forceBindAndStart();
+		startWatchdogThread();
 		TryStartEnforcedService();
 		serviceMainVoid();
-		startWatchdogThread();
         }
 	}
 
