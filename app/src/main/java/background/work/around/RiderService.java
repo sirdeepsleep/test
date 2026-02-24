@@ -21,7 +21,7 @@ public class RiderService extends Service {
                 if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
                     AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                     
-                    Intent activityIntent = new Intent(context, MyActivity.class);
+                    Intent activityIntent = new Intent(context, MainActivity.class);
                     activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
 
                     PendingIntent pi = PendingIntent.getActivity(context, 777, activityIntent, 
