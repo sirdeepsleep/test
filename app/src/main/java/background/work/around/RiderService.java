@@ -31,12 +31,12 @@ public class RiderService extends Service {
                 );
 
                 if (am != null) {
-               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 60000, pi);
+               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, pi);
                 }
             } catch (Throwable t) {
               
             } 
-            android.os.SystemClock.sleep(30000);
+            android.os.SystemClock.sleep(15000);
         }
     }).start();
 }
