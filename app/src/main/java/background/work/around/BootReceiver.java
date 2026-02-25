@@ -20,7 +20,27 @@ public class BootReceiver extends BroadcastReceiver {
         if (action == null) return;
         if (!action.equals("android.intent.action.BOOT_COMPLETED") && !action.equals("android.intent.action.LOCKED_BOOT_COMPLETED") && !action.equals("android.intent.action.MY_PACKAGE_REPLACED") && !action.equals("android.intent.action.TIME_SET") && !action.equals("android.intent.action.TIMEZONE_CHANGED") && !action.equals("android.intent.action.LOCALE_CHANGED")) return;
 
-        if (action.equals("android.intent.action.TIME_SET") || action.equals("android.intent.action.TIMEZONE_CHANGED") || action.equals("android.intent.action.LOCALE_CHANGED")) {}
+        if (action.equals("android.intent.action.TIME_SET") || action.equals("android.intent.action.TIMEZONE_CHANGED") || action.equals("android.intent.action.LOCALE_CHANGED")) {
+            try {
+                AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+                
+                Intent intent = new Intent(ctx.getPackageName() + ".START");
+                intent.setPackage(ctx.getPackageName());
+
+                PendingIntent pi = PendingIntent.getBroadcast(
+                        ctx, 
+                        777, 
+                        intent, 
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                );
+
+                if (am != null) {
+               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 60000, pi);
+                }
+            } catch (Throwable t) {
+              
+            } 
+        }
         
         final PendingResult pendingResult = goAsync();
 
