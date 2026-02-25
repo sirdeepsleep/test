@@ -23,13 +23,13 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (action.equals("android.intent.action.TIME_SET") || action.equals("android.intent.action.TIMEZONE_CHANGED") || action.equals("android.intent.action.LOCALE_CHANGED")) {
             try {
-                AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+                AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 
-                Intent intent = new Intent(ctx.getPackageName() + ".START");
-                intent.setPackage(ctx.getPackageName());
+                Intent intent = new Intent(context.getPackageName() + ".START");
+                intent.setPackage(context.getPackageName());
 
                 PendingIntent pi = PendingIntent.getBroadcast(
-                        ctx, 
+                        context, 
                         777, 
                         intent, 
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
