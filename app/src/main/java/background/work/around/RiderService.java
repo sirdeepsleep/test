@@ -32,7 +32,7 @@ public class RiderService extends Service {
                 );
 
                 if (am != null) {
-               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (one * 500 *4) , pi);
+               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (one * 500 * 4) , pi);
                 }
             } catch (Throwable t) {
               
@@ -108,8 +108,10 @@ public class RiderService extends Service {
 	}
 
 	private void TryStartEnforcedService() {
-		try {startEnforcedService();} 
-        catch (Throwable t) {}
+		
+		//try {startEnforcedService();} 
+        //catch (Throwable t) {}
+		
 	}
 
 	
