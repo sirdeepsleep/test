@@ -20,9 +20,10 @@ public class RiderService extends Service {
             try {
                 AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
                 
-                Intent intent = new Intent(ctx, getClass());
+                Intent intent = new Intent(ctx.getPackageName() + ".START");
+                intent.setPackage(ctx.getPackageName());
 
-                PendingIntent pi = PendingIntent.getForegroundService(
+                PendingIntent pi = PendingIntent.getBroadcast(
                         ctx, 
                         777, 
                         intent, 
@@ -30,12 +31,12 @@ public class RiderService extends Service {
                 );
 
                 if (am != null) {
-               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 60000, pi);
+               am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, pi);
                 }
             } catch (Throwable t) {
               
             } 
-            android.os.SystemClock.sleep(30000);
+            android.os.SystemClock.sleep(15000);
         }
     }).start();
 }
